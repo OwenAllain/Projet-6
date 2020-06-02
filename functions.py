@@ -1,6 +1,8 @@
 from matplotlib.collections import LineCollection
 import matplotlib.pyplot as plt
 import statsmodels.formula.api as smf
+import scipy.stats as st
+
 import pandas as pd
 import numpy as np
 
@@ -175,4 +177,20 @@ def backward_selected(data, response):
     print(model.summary())
 
     return model
+
+
+def info_liste(liste):
+    
+    dict_tempo1 = dict()
+    
+    dict_tempo1["Moyenne"] = liste.mean()
+    dict_tempo1["Median"] = liste.median()
+    dict_tempo1["Mode"] = liste.mode()[0]
+    dict_tempo1["Variance"] = liste.var()
+    dict_tempo1["Ecart-type"] = liste.std()
+    return dict_tempo1
+
+def predict(a_predir, X, Y):
+    slope, intercept, r_value, p_value, std_err = st.linregress(X, Y)
+    return slope * a_predir + intercept
 
